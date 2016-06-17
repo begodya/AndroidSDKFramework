@@ -23,23 +23,21 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:design:22.2.1'
 }
 
-task makeJar(type: Copy) {
-    delete 'build/libs/BBSDKFramework.jar'
-    from('build/intermediates/bundles/release/')
-    into('build/libs/')
-    include('classes.jar')
-    rename ('classes.jar', 'BBSDKFramework.jar')
-}
+//dependsOn 可根据实际需要增加或更改
+task buildJar(dependsOn: ['compileReleaseJava'], type: Jar) {
 
-makeJar.dependsOn(build)
+    appendix = "demo"
+    baseName = "androidJar"
+    version = "1.0.0"
+    classifier = "release"
 
-task buildJar(dependsOn: build, type: Jar) {
-
-    //最终的 Jar 包名
+    //后缀名
+    extension = "jar"
+    //最终的 Jar 包名，如果没设置，默认为 [baseName]-[appendix]-[version]-[classifier].[extension]
     archiveName = "BBSDKFramework.jar"
+
     //需打包的资源所在的路径集
     def srcClassDir = [project.buildDir.absolutePath + "/intermediates/classes/release"];
     //初始化资源路径集
@@ -48,13 +46,13 @@ task buildJar(dependsOn: build, type: Jar) {
     //去除路径集下部分的资源
 //    exclude "org/chaos/demo/jar/MainActivity.class"
 //    exclude "org/chaos/demo/jar/MainActivity\$*.class"
-//    exclude "org/chaos/demo/jar/BuildConfig.class"
-//    exclude "org/chaos/demo/jar/BuildConfig\$*.class"
+    exclude "org/chaos/demo/jar/BuildConfig.class"
+    exclude "org/chaos/demo/jar/BuildConfig\$*.class"
     exclude "**/R.class"
     exclude "**/R\$*.class"
 
     //只导入资源路径集下的部分资源
-//    include "org/chaos/demo/jar/**/*.class"
+    include "org/chaos/demo/jar/**/*.class"
 
     //注: exclude include 支持可变长参数
 }
