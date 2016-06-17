@@ -26,18 +26,10 @@ dependencies {
 }
 
 //dependsOn 可根据实际需要增加或更改
-task buildJar(dependsOn: ['compileReleaseJava'], type: Jar) {
+task buildJar(dependsOn: build, type: Jar) {
 
-    appendix = "demo"
-    baseName = "androidJar"
-    version = "1.0.0"
-    classifier = "release"
-
-    //后缀名
-    extension = "jar"
-    //最终的 Jar 包名，如果没设置，默认为 [baseName]-[appendix]-[version]-[classifier].[extension]
+    //最终的 Jar 包名
     archiveName = "BBSDKFramework.jar"
-
     //需打包的资源所在的路径集
     def srcClassDir = [project.buildDir.absolutePath + "/intermediates/classes/release"];
     //初始化资源路径集
@@ -46,13 +38,13 @@ task buildJar(dependsOn: ['compileReleaseJava'], type: Jar) {
     //去除路径集下部分的资源
 //    exclude "org/chaos/demo/jar/MainActivity.class"
 //    exclude "org/chaos/demo/jar/MainActivity\$*.class"
-    exclude "org/chaos/demo/jar/BuildConfig.class"
-    exclude "org/chaos/demo/jar/BuildConfig\$*.class"
+//    exclude "org/chaos/demo/jar/BuildConfig.class"
+//    exclude "org/chaos/demo/jar/BuildConfig\$*.class"
     exclude "**/R.class"
     exclude "**/R\$*.class"
 
     //只导入资源路径集下的部分资源
-    include "org/chaos/demo/jar/**/*.class"
+//    include "org/chaos/demo/jar/**/*.class"
 
     //注: exclude include 支持可变长参数
 }
