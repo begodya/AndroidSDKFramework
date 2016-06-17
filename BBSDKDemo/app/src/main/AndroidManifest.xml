@@ -15,6 +15,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.begodya.bbsdkframework.BBBaseActivity">
+        </activity>
+        <activity
+            android:name="com.begodya.bbsdkframework.widget.SDKH5Activity">
+        </activity>
     </application>
 
 </manifest>

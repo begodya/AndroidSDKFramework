@@ -26,7 +26,17 @@ dependencies {
     compile 'com.android.support:design:22.2.1'
 }
 
-task buildJar(dependsOn: ['compileReleaseJava'], type: Jar) {
+task makeJar(type: Copy) {
+    delete 'build/libs/BBSDKFramework.jar'
+    from('build/intermediates/bundles/release/')
+    into('build/libs/')
+    include('classes.jar')
+    rename ('classes.jar', 'BBSDKFramework.jar')
+}
+
+makeJar.dependsOn(build)
+
+task buildJar(dependsOn: build, type: Jar) {
 
     //最终的 Jar 包名
     archiveName = "BBSDKFramework.jar"
